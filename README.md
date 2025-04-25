@@ -5,10 +5,10 @@
 ### `package_project.py`  
 Manages Windows-to-Linux environment bridging
 
-### `BackendDeployTeamCity/`
+### `CI\BackendDeployTeamCity/`
 Handles Unreal Engine backend builds and AWS deployments
 
-### `TeamCity-to-Cygwin/`  
+### `CI\TeamCity-to-Cygwin/`  
 Manages Windows-to-Linux environment bridging
 
 ---
