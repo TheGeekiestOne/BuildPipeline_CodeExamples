@@ -2,6 +2,9 @@
 
 ## 📂 Folder Structure
 
+### `package_project.py`  
+Manages Windows-to-Linux environment bridging
+
 ### `BackendDeployTeamCity/`
 Handles Unreal Engine backend builds and AWS deployments
 
@@ -9,7 +12,41 @@ Handles Unreal Engine backend builds and AWS deployments
 Manages Windows-to-Linux environment bridging
 
 ---
+## 🔍 Debug Symbol Processing (`package_project.py`)
+Handles Unreal Engine Android symbol files (`libUnreal.so`) for Sentry crash reporting:
 
+
+```python
+   def compress_and_upload_symbols(ndk_path, symbols_path, sentry_cli_path, org, project, auth_token):
+    """Compresses and uploads UE debug symbols to Sentry for Android crash reporting"""
+```
+Key Features:
+Sentry Integration: Automates symbol upload for UE Android builds  
+
+NDK Compression: Uses llvm-objcopy to reduce symbol file size by ~60%
+
+CI Ready: Designed for build pipelines with environment variable support
+
+UE-Specific Usage:
+Ensure Sentry plugin is installed in your Unreal project
+
+Configure in DefaultEngine.ini:
+
+```ini
+[Sentry]
+Dsn=https://your-key@sentry.io/your-project
+```
+Call during Android builds:
+
+```python
+compress_and_upload_symbols(
+    ndk_path="C:/AndroidNDK",
+    symbols_path="Binaries/Android/ARM64",
+    sentry_cli_path=find_sentry_cli(),
+    org="your-game-studio",
+    project="your-ue-project",
+    auth_token=os.getenv("SENTRY_AUTH_TOKEN")
+```
 ## 🏗 Backend Deployment (`BackendDeployTeamCity/`)
 
 ### Core Files:
